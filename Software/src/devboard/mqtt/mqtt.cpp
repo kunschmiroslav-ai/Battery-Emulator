@@ -141,7 +141,6 @@ SensorConfig globalSensorConfigTemplate[] = {
     {"event_level", "Event Level", "", "", "", always},
     {"emulator_status", "Emulator Status", "", "", "", always},
     // MK260120 uptime & cpu temp to globalsensorconfigs
-    {"emulator_uptime_string", "Emulator Uptime String", "", "", "", always},
     {"emulator_uptime_seconds", "Emulator Uptime Seconds", "", "s", "duration", always},
     {"cpu_temperature", "CPU Temperature", "", "°C", "temperature", always}};
 
