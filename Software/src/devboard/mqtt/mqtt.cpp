@@ -135,10 +135,15 @@ SensorConfig batterySensorConfigTemplate[] = {
     {"balancing_active_cells", "Balancing Active Cells", "", "", "", always},
     {"balancing_status", "Balancing Status", "", "", "", always}};
 
-SensorConfig globalSensorConfigTemplate[] = {{"bms_status", "BMS Status", "", "", "", always},
-                                             {"pause_status", "Pause Status", "", "", "", always},
-                                             {"event_level", "Event Level", "", "", "", always},
-                                             {"emulator_status", "Emulator Status", "", "", "", always}};
+SensorConfig globalSensorConfigTemplate[] = {
+    {"bms_status", "BMS Status", "", "", "", always},
+    {"pause_status", "Pause Status", "", "", "", always},
+    {"event_level", "Event Level", "", "", "", always},
+    {"emulator_status", "Emulator Status", "", "", "", always},
+    // MK260120 uptime & cpu temp to globalsensorconfigs
+    {"emulator_uptime_string", "Emulator Uptime String", "", "", "", always},
+    {"emulator_uptime_seconds", "Emulator Uptime Seconds", "", "s", "duration", always},
+    {"cpu_temperature", "CPU Temperature", "", "°C", "temperature", always}};
 
 static std::list<SensorConfig> sensorConfigs;
 
@@ -327,6 +332,9 @@ static bool publish_common_info(void) {
 
     doc["event_level"] = get_event_level_string(get_event_level());
     doc["emulator_status"] = get_emulator_status_string(get_emulator_status());
+    //MK 260120 add uptime & cpu temp
+    doc["emulator_uptime_seconds"] = millis64() / 1000;
+    doc["cpu_temperature"] = datalayer.system.info.CPU_temperature;
 
     serializeJson(doc, mqtt_msg);
     if (mqtt_publish(state_topic.c_str(), mqtt_msg, false) == false) {
