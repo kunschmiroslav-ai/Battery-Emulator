@@ -157,6 +157,7 @@ Battery* create_battery(BatteryType type) {
       return nullptr;
     case BatteryType::BmwI3:
       return new BmwI3Battery();
+#ifndef SMALL_FLASH_DEVICE // MK
     case BatteryType::BmwIX:
       return new BmwIXBattery();
     case BatteryType::BmwPhev:
@@ -203,10 +204,10 @@ Battery* create_battery(BatteryType type) {
       return new MaxusEV80Battery();
     case BatteryType::Meb:
       return new MebBattery();
-#ifndef SMALL_FLASH_DEVICE
+      // #ifndef SMALL_FLASH_DEVICE
     case BatteryType::Mg5:
       return new Mg5Battery();
-#endif
+      // #endif
     case BatteryType::MgHsPhev:
       return new MgHsPHEVBattery();
     case BatteryType::NissanLeaf:
@@ -249,6 +250,7 @@ Battery* create_battery(BatteryType type) {
       return new VolvoSpaBattery();
     case BatteryType::VolvoSpaHybrid:
       return new VolvoSpaHybridBattery();
+#endif  // MK
     default:
       return nullptr;
   }
